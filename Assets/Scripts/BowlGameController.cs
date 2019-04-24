@@ -14,9 +14,9 @@ public class BowlGameController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
-     
+
     void OnCollisionStay(Collision col)
     {
         if (col.gameObject.name == "Ball")
@@ -27,7 +27,7 @@ public class BowlGameController : MonoBehaviour
 
     bool IsSolved()
     {
-        if(axis.Equals(value))
+        if (axis.Equals(value))
         {
             onPuzzleSolved?.Invoke();
             mSphere.GetComponent<Renderer>().material.color = Color.yellow;
@@ -38,6 +38,6 @@ public class BowlGameController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 }
