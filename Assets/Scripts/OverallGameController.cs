@@ -4,14 +4,13 @@ using UnityEngine;
 
 public class OverallGameController : MonoBehaviour
 {
-    public int tracker;
+    private int tracker;
     public delegate void OnSolved();
     public static event OnSolved onPuzzleSolved;
-    public GameObject finalChest;
+    public Light light;
     // Start is called before the first frame update
     void Start()
     {
-
     }
     // Sphere is unlocked and may be grabbed
     void FinishedTargetGame()
@@ -23,26 +22,26 @@ public class OverallGameController : MonoBehaviour
     {
         tracker += 1;
     }
+    void FinishedPressurePadGame()
+    {
+        tracker += 1;
+    }
     // Called when object containing script is created or enabled
     void OnEnable()
     {
         TargetGameController.onPuzzleSolved += FinishedTargetGame;
-        MazePuzzleController.onPuzzleSolved += FinishedMazeGame;
+        PressurePad.onPuzzleSolved += FinishedPressurePadGame;
+        Endpoint.onPuzzleSolved += FinishedMazeGame;
     }
 
-    bool isSolved()
-    {
-        if (tracker == 3)
-        {
-            Destroy(finalChest);
-            onPuzzleSolved?.Invoke();
-            return true;
-        }
-        return false;
-    }
     // Update is called once per frame
     void Update()
     {
-    
+        if (tracker == 3)
+        {
+            //activate a light
+            light.range = 3;
+            onPuzzleSolved?.Invoke();
+        }
     }
 }
