@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class FinalController : MonoBehaviour
 {
-    public int tracker;
+    private int tracker;
     public GameObject finalChest;
 
     // Start is called before the first frame update
