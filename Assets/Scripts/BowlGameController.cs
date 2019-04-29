@@ -5,39 +5,38 @@ using UnityEngine;
 public class BowlGameController : MonoBehaviour
 {
     public Vector3 axis = Vector3.up;
-    public GameObject mSphere;
+    public GameObject orbs;
     public delegate void OnSolved();
     public static event OnSolved onPuzzleSolved;
-    public int value;
-    public int multiplier;
+    public float value;
+    public float multiplier;
+    private float counter;
 
     // Start is called before the first frame update
     void Start()
     {
-
     }
 
-    void OnCollisionStay(Collision col)
+    void OnCollisionEnter(Collision col)
     {
-        if (col.gameObject.name == "Ball")
+        if (col.gameObject.tag == "Ball")
         {
-            mSphere.transform.Translate(axis * multiplier);
+            if (counter<value+1)
+            {
+                orbs.transform.Translate(axis * multiplier);
+                Destroy(col.gameObject);
+                counter += multiplier;
+            }
         }
-    }
+    } 
 
-    bool IsSolved()
-    {
-        if (axis.Equals(value))
-        {
-            onPuzzleSolved?.Invoke();
-            mSphere.GetComponent<Renderer>().material.color = Color.yellow;
-            return true;
-        }
-        return false;
-    }
     // Update is called once per frame
     void Update()
     {
-
+        if (counter.Equals(value))
+        {
+            onPuzzleSolved?.Invoke();
+            orbs.GetComponent<Renderer>().material.color = Color.yellow;
+        }
     }
 }
