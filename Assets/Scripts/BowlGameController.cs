@@ -10,7 +10,7 @@ public class BowlGameController : MonoBehaviour
     public static event OnSolved onPuzzleSolved;
     public float value;
     public float multiplier;
-    private float counter;
+    private float counter = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -21,7 +21,7 @@ public class BowlGameController : MonoBehaviour
     {
         if (col.gameObject.tag == "Ball")
         {
-            if (counter<value+1)
+            if (counter<=value+1)
             {
                 orbs.transform.Translate(axis * multiplier);
                 Destroy(col.gameObject);
